@@ -61,6 +61,7 @@
                     x = 0;
                     score = score + 1;
                 }
+
                 let pipeX = MAX_WIDTH - x;
 
                 
@@ -77,6 +78,11 @@
                 ctx.fillStyle = "green";
                 ctx.rect(pipeX, pipeBottomY, pipeWidth, TOWER_HEIGHT);
                 ctx.fill();
+
+                if (y > MAX_HEIGHT - birdHeight || y < 0) {
+                    alert("Collision detected! & your score is " + score);
+                    break;
+                }
 
                 if (isColliding(birdX, birdY, birdWidth, birdHeight, pipeX, pipeY, pipeWidth, pipeHeight) ||
                     isColliding(birdX, birdY, birdWidth, birdHeight, pipeX, pipeBottomY, pipeWidth, pipeHeight)) {
