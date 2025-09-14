@@ -1,6 +1,6 @@
 <html>
     <body>
-        <canvas id="gameCanvas" style="border: 10px solid black" id="canvas" width="1600" height="800"></canvas>
+        <canvas id="gameCanvas" style="border: 10px solid black" id="canvas" width="1200" height="800"></canvas>
     </body>
     <script>
 
@@ -25,13 +25,14 @@
 
             let birdX = 10;
             let birdY = y;
-            let birdWidth = 100;
-            let birdHeight = 100;
+            let birdWidth = 60;
+            let birdHeight = 60;
 
             let pipeX = MAX_WIDTH - x;
             let pipeY = 0;
             let pipeWidth = 100;
             let pipeHeight = TOWER_HEIGHT;
+            let score = 0;
 
             let pipeBottomY = MAX_HEIGHT - TOWER_HEIGHT;
 
@@ -48,13 +49,24 @@
                 ctx.beginPath();
                 y_velocity = y_velocity + gravity * 0.33;
                 y = y + y_velocity * 0.33;
+                birdY = y;
                 ctx.fillStyle = "red";
-                ctx.rect(birdX, y, birdWidth, birdHeight);
-                y = y + 1;
+                ctx.rect(birdX, birdY, birdWidth, birdHeight);
                 ctx.fill();
 
+
+
                 x = x + 10;
+                if(x - pipeWidth > MAX_WIDTH) {
+                    x = 0;
+                    score = score + 1;
+                }
                 let pipeX = MAX_WIDTH - x;
+
+                
+
+
+
                 ctx.beginPath();
                 ctx.fillStyle = "green";
                 ctx.rect(pipeX, pipeY, pipeWidth, TOWER_HEIGHT);
@@ -68,7 +80,7 @@
 
                 if (isColliding(birdX, birdY, birdWidth, birdHeight, pipeX, pipeY, pipeWidth, pipeHeight) ||
                     isColliding(birdX, birdY, birdWidth, birdHeight, pipeX, pipeBottomY, pipeWidth, pipeHeight)) {
-                    alert("Collision detected!");
+                    alert("Collision detected! & your score is " + score);
                     break;
                 }
                 
